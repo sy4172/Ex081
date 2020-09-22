@@ -38,15 +38,15 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
         Intent gi = getIntent();
         first = Double.parseDouble(gi.getStringExtra("firstObject"));
         firstStr = String.valueOf(first);
-        while ((firstStr.endsWith("0") && !(firstStr.endsWith(".")))){
-            firstStr = String.valueOf(first).substring(0,String.valueOf(first).length()-2);
+        while (!(firstStr.endsWith(".")) && firstStr.contains(".") && firstStr.endsWith("0")){
+            firstStr = firstStr.substring(0,String.valueOf(first).length()-2);
         }
         firstObject.setText(firstStr);
 
         distance = Double.parseDouble(gi.getStringExtra("distance"));
         distanceStr = String.valueOf(distance);
-        while ((distanceStr.endsWith("0") && !(distanceStr.endsWith(".")))){
-            distanceStr = String.valueOf(distance).substring(0,String.valueOf(distance).length()-2);
+        while (!(distanceStr.endsWith(".")) && distanceStr.contains(".") && distanceStr.endsWith("0")){
+            distanceStr = distanceStr.substring(0,String.valueOf(distance).length()-2);
         }
         d.setText(distanceStr);
 
@@ -57,7 +57,7 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
         if (flag){
             for (int i=0; i<objects.length; i++){
                 objects[i] = String.valueOf(first*Math.pow(distance,(i+1)-1));
-                while ((objects[i].endsWith("0") && !(objects[i].endsWith(".")))){
+                while (!(objects[i].endsWith(".")) && objects[i].contains(".") && objects[i].endsWith("0")){
                     objects[i] = objects[i].substring(0,objects[i].length()-2);
                 }
             }
@@ -65,7 +65,7 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
         else{
             for (int i=0; i<objects.length;i++){
                 objects[i] = String.valueOf(first+(distance*(i+1)-distance));
-                while ((objects[i].endsWith("0") && !(objects[i].endsWith(".")))){
+                while (!(objects[i].endsWith(".")) && objects[i].contains(".") && objects[i].endsWith("0")){
                     objects[i] = objects[i].substring(0,objects[i].length()-2);
                 }
             }
