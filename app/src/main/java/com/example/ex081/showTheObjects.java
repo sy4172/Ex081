@@ -54,7 +54,7 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,objects);
         lv.setAdapter(adp);
 
-        if (flag){
+        if (flag){ // Geometric series
             for (int i=0; i<objects.length; i++){
                 objects[i] = String.valueOf(first*Math.pow(distance,(i+1)-1));
                 while (!(objects[i].endsWith(".")) && objects[i].contains(".") && objects[i].endsWith("0")){
@@ -62,7 +62,7 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
                 }
             }
         }
-        else{
+        else{ // Math series
             for (int i=0; i<objects.length;i++){
                 objects[i] = String.valueOf(first+(distance*(i+1)-distance));
                 while (!(objects[i].endsWith(".")) && objects[i].contains(".") && objects[i].endsWith("0")){
@@ -79,12 +79,14 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         pos.setText(String.valueOf(position+1));
-        if (flag){
-            sum = (first*(Math.pow(distance,position) - 1)) / (distance - 1);
+        if (flag){ // Geometric series
+            for (int i=0; i<=position; i++){
+                sum += Double.parseDouble(objects[i]);
+            }
         }
-        else{
-            for (int i=0; i<position; i++){
-                sum += Integer.parseInt(objects[i]);
+        else{ // Math series
+            for (int i=0; i<=position; i++){
+                sum += Double.parseDouble(objects[i]);
             }
         }
 
