@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         if (firstObject.getText().toString().isEmpty() || distance.getText().toString().isEmpty()){
             Toast.makeText(this, "Enter all fields", Toast.LENGTH_SHORT).show();
         }
+        else if (firstObject.getText().toString().equals("-") || firstObject.getText().toString().equals(".") || firstObject.getText().toString().equals("-.")  || distance.getText().toString().equals(".") || distance.getText().toString().equals("-") || distance.getText().toString().equals("-.")){
+            Toast.makeText(this, " - or . cannot without numbers", Toast.LENGTH_SHORT).show();
+        }
         else{
             flag = type.isChecked();
             Intent si = new Intent(this, showTheObjects.class);

@@ -16,7 +16,8 @@ import android.widget.Toast;
 public class showTheObjects extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     String [] objects = new String[20];
-    double distance, sum, first;
+    double [] sumOfAll = new double[20];
+    double distance, first;
     boolean flag;
     String firstStr, distanceStr;
     TextView firstObject, d, pos, sumUntilPos;
@@ -57,6 +58,12 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
         if (flag){ // Geometric series
             for (int i=0; i<objects.length; i++){
                 objects[i] = String.valueOf(first*Math.pow(distance,(i+1)-1));
+                if (i == 0) {
+                    sumOfAll[0] = Double.parseDouble(objects[0]);
+                }
+                else{
+                    sumOfAll[i] = sumOfAll[i-1] + Double.parseDouble(objects[i]);
+                }
                 while (!(objects[i].endsWith(".")) && objects[i].contains(".") && objects[i].endsWith("0")){
                     objects[i] = objects[i].substring(0,objects[i].length()-2);
                 }
@@ -65,6 +72,12 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
         else{ // Math series
             for (int i=0; i<objects.length;i++){
                 objects[i] = String.valueOf(first+(distance*(i+1)-distance));
+                if (i == 0) {
+                    sumOfAll[0] = Double.parseDouble(objects[0]);
+                }
+                else{
+                    sumOfAll[i] = sumOfAll[i-1] + Double.parseDouble(objects[i]);
+                }
                 while (!(objects[i].endsWith(".")) && objects[i].contains(".") && objects[i].endsWith("0")){
                     objects[i] = objects[i].substring(0,objects[i].length()-2);
                 }
@@ -79,24 +92,12 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         pos.setText(String.valueOf(position+1));
-        if (flag){ // Geometric series
-            for (int i=0; i<=position; i++){
-                sum += Double.parseDouble(objects[i]);
-            }
-        }
-        else{ // Math series
-            for (int i=0; i<=position; i++){
-                sum += Double.parseDouble(objects[i]);
-            }
-        }
 
-        if ((sum - (int)sum > 0) &&  (sum - (int)sum < 1)){
-            sumUntilPos.setText(String.valueOf(sum));
-            sum = 0;
+        if ((sumOfAll[position] - (int)sumOfAll[position] > 0) &&  (sumOfAll[position] - (int)sumOfAll[position] < 1)){
+            sumUntilPos.setText(String.valueOf(sumOfAll[position]));
         }
         else{
-            sumUntilPos.setText(String.valueOf((int) sum));
-            sum = 0;
+            sumUntilPos.setText(String.valueOf((int) sumOfAll[position]));
         }
     }
 }
