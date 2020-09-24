@@ -92,12 +92,20 @@ public class showTheObjects extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         pos.setText(String.valueOf(position+1));
-
-        if ((sumOfAll[position] - (int)sumOfAll[position] > 0) &&  (sumOfAll[position] - (int)sumOfAll[position] < 1)){
-            sumUntilPos.setText(String.valueOf(sumOfAll[position]));
+        int len;
+        String sumToDisplay = String.valueOf(sumOfAll[position]);
+        if (sumToDisplay.length() > 6){
+            len = sumToDisplay.length() - 6;
+            sumToDisplay = sumToDisplay.substring(0,sumToDisplay.length() - len);
+            if (sumToDisplay.endsWith(".")){
+                sumToDisplay = sumToDisplay.substring(0,sumToDisplay.length() - 1);
+            }
+        }
+        if (sumToDisplay.endsWith(".0")){
+            sumUntilPos.setText(sumToDisplay.substring(0,sumToDisplay.length()-2));
         }
         else{
-            sumUntilPos.setText(String.valueOf((int) sumOfAll[position]));
+            sumUntilPos.setText(sumToDisplay);
         }
     }
 }
